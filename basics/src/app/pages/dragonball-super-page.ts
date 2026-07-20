@@ -6,4 +6,4 @@ import { Component } from '@angular/core';
   template: ` <p>dragonball-super works!</p> `,
   styles: ``,
 })
-export class DragonballSuper {}
+export class DragonballSuperPage {}
