@@ -11,7 +11,7 @@ export const routes: Routes = [
     },
     {
         path: 'search',
-        loadComponent: () => import('./gifs/pages/trending-page')
+        loadComponent: () => import('./gifs/pages/search-page')
     },
     {
         path: '**',
