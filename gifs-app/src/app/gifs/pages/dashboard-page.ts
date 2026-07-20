@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard-page',
-  imports: [],
+  imports: [RouterOutlet],
   template: `
     <div
       class="bg-slate-100 overflow-y-scroll w-screen h-screen antialiased text-slate-300 selection:bg-blue-600 selection:text-white"
@@ -209,6 +210,11 @@ import { Component } from '@angular/core';
             </a>
           </div>
         </div>
+
+        <div class="ml-64 px-4 flex flex-col flex-1 h-full text-slate-800">
+          <router-outlet />
+        </div>
+
       </div>
     </div>
   `,
