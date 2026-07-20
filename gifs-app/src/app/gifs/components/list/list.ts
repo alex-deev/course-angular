@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { Item } from './item';
 
 @Component({
@@ -6,9 +6,14 @@ import { Item } from './item';
   imports: [Item],
   template: `
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <gifs-list-item />
+
+      @for (url of gifs(); track $index) {
+        <gifs-list-item [imgUrl]="url" />
+      }
+
     </div>
   `,
-  styles: ``,
 })
-export class List {}
+export class List {
+  gifs = input.required<string[]>();
+}
