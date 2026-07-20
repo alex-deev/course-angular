@@ -1,0 +1,26 @@
+{
+	"name": "Course: Angular by Fernando Herreras",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"options": [
+			"--pull=never"
+		]
+	},
+	"forwardPorts": [
+		4200
+	],
+	"remoteUser": "node",
+	"runArgs": [
+		"--userns=keep-id",
+		"--name",
+		"course-cont-angular"
+	],
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"angular.ng-template",
+				"esbenp.prettier-vscode"
+			]
+		}
+	}
+}
