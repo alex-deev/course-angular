@@ -1,10 +1,12 @@
-export interface Welcome {
-  data: GifphyResponse[];
+// Interface de datos externa (gifphy.com)
+
+export interface GifphyResponse {
+  data: GifphyItem[];
   meta: Meta;
   pagination: Pagination;
 }
 
-export interface GifphyResponse {
+export interface GifphyItem {
   type: Type;
   id: string;
   url: string;
