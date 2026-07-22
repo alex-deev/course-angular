@@ -4,6 +4,7 @@ import { environment } from '@environments/environment';
 import type { GifphyResponse } from '../interfaces/gifphy.interfaces';
 import { Gif } from '../interfaces/gif.interface';
 import { GifMapper } from '../mapper/gif.mapper';
+import { map, tap } from 'rxjs';
 
 @Service()
 export class GifService {
@@ -34,7 +35,7 @@ export class GifService {
   }
 
   searchGifs(query: string) {
-    this.http
+    return this.http
       .get<GifphyResponse>(`${environment.gifphyUrl}/gifs/search`, {
         params: {
           api_key: environment.gifphyApiKey,
@@ -42,10 +43,9 @@ export class GifService {
           q: query,
         },
       })
-      .subscribe((res) => {
-        const gifs = GifMapper.mapGifphyItemsToGifArray(res.data);
-
-        console.log(gifs);
-      });
+      .pipe(
+        tap((res) => console.log({ res })),
+        map((res) => GifMapper.mapGifphyItemsToGifArray(res.data)),
+      );
   }
 }

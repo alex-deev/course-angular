@@ -21,14 +21,15 @@ import { Gif } from '../interfaces/gif.interface';
     </section>
 
     <section class="grid">
-      <gifs-list [gifs]="[]" />
+      <gifs-list [gifs]="gifs()" />
     </section>
   `,
 })
 export default class SearchPage {
   gifService = inject(GifService);
+  gifs = signal<Gif[]>([]);
 
   onSearch(text: string) {
-    this.gifService.searchGifs(text);
+    this.gifService.searchGifs(text).subscribe((res) => this.gifs.set(res));
   }
 }
