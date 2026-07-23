@@ -21,7 +21,9 @@ import { Gif } from '../interfaces/gif.interface';
     </section>
 
     <section class="grid">
-      <gifs-list [gifs]="gifs()" />
+      @if (gifs().length > 0) {
+        <gifs-list [gifs]="gifs()" />
+      }
     </section>
   `,
 })

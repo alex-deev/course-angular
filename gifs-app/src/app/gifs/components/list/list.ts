@@ -7,8 +7,10 @@ import { Gif } from '../../interfaces/gif.interface';
   imports: [Item],
   template: `
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      @for (gif of gifs(); track $index) {
+      @for (gif of gifs(); track gif.id) {
         <gifs-list-item [imgUrl]="gif.url" />
+      } @empty {
+        <p>No se han podido recuperar los GIFs!</p>
       }
     </div>
   `,
