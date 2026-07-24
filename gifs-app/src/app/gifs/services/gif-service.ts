@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { computed, inject, Service, signal } from '@angular/core';
+import { computed, effect, inject, Service, signal } from '@angular/core';
 import { environment } from '@environments/environment';
 import type { GifphyResponse } from '../interfaces/gifphy.interfaces';
 import { Gif } from '../interfaces/gif.interface';
@@ -18,6 +18,7 @@ export class GifService {
 
   constructor() {
     this.loadTrendingGifs();
+    this.loadHistoryFromStorage();
   }
 
   loadTrendingGifs() {
@@ -32,8 +33,6 @@ export class GifService {
         const gifs = GifMapper.mapGifphyItemsToGifArray(res.data);
         this.trendingGifs.set(gifs);
         this.trendingLoading.set(false);
-
-        console.log(gifs);
       });
   }
 
@@ -47,7 +46,6 @@ export class GifService {
         },
       })
       .pipe(
-        tap((res) => console.log({ res })),
         map((res) => GifMapper.mapGifphyItemsToGifArray(res.data)),
         tap((gifs) =>
           this.searchHistory.update((history) => ({
@@ -55,10 +53,25 @@ export class GifService {
             [query.toLocaleLowerCase()]: gifs,
           })),
         ),
+        tap(() => this.saveHistoryOnStorage()),
       );
   }
 
   getHistoryGifs(query: string) {
     return this.searchHistory()[query] ?? [];
+  }
+
+  loadHistoryFromStorage() {
+    try {
+      const rawHistory = localStorage.getItem('gifs-history') ?? '{}';
+      const history = JSON.parse(rawHistory);
+      this.searchHistory.set(history);
+    } catch {
+      this.searchHistory.set({});
+    }
+  }
+
+  saveHistoryOnStorage() {
+    localStorage.setItem('gifs-history', JSON.stringify(this.searchHistory()));
   }
 }
