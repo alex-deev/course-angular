@@ -12,6 +12,10 @@ export class GifService {
 
   trendingGifs = signal<Gif[]>([]);
   trendingLoading = signal(true);
+  trendingGroups = computed(() => {
+    const arr = this.trendingGifs();
+    return Array.from({ length: Math.ceil(arr.length / 3) }, (_, i) => arr.slice(i * 3, i * 3 + 3));
+  });
 
   searchHistory = signal<Record<string, Gif[]>>({});
   searchHistoryKeys = computed(() => Object.keys(this.searchHistory()));
@@ -26,7 +30,7 @@ export class GifService {
       .get<GifphyResponse>(`${environment.gifphyUrl}/gifs/trending`, {
         params: {
           api_key: environment.gifphyApiKey,
-          limit: 15,
+          limit: 18,
         },
       })
       .subscribe((res) => {

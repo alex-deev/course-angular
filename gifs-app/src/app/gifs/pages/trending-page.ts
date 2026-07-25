@@ -4,10 +4,19 @@ import { GifService } from '../services/gif-service';
 
 @Component({
   selector: 'app-trending-page',
-  imports: [List],
   template: `
     <section class="py-5">
-      <gifs-list [gifs]="gifService.trendingGifs()" />
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        @for (group of gifService.trendingGroups(); track $index) {
+          <div class="grid gap-4">
+            @for (gif of group; track gif.id) {
+              <div>
+                <img class="h-full w-full rounded object-cover" [src]="gif.url" [alt]="gif.title" />
+              </div>
+            }
+          </div>
+        }
+      </div>
     </section>
   `,
 })
