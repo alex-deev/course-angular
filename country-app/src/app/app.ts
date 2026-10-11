@@ -1,20 +1,18 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { Footer } from './shared/components/footer';
 
 @Component({
   selector: 'app-root',
-  imports: [],
-  template: `<p>hello</p>
-    <button class="btn">Click</button>
+  imports: [RouterOutlet, Footer],
+  template: `
+    <main class="m-auto flex grow flex-col min-h-screen">
+      <router-outlet />
 
-    <button class="btn btn-neutral">Neutral</button>
-    <button class="btn btn-primary">Primary</button>
-    <button class="btn btn-secondary">Secondary</button>
-    <button class="btn btn-accent">Accent</button>
-    <button class="btn btn-info">Info</button>
-    <button class="btn btn-success">Success</button>
-    <button class="btn btn-warning">Warning</button>
-    <button class="btn btn-error">Error</button> `,
+      <div class="flex-1 grow"></div>
+      <app-footer />
+    </main>
+  `,
 })
 export class App {
   protected readonly title = signal('country-app');

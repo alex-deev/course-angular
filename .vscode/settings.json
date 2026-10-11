@@ -1,7 +1,18 @@
 {
-    "[typescript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "angular-schematics.schematicsDefaultOptions": {
+    "angular-*": {
+      "skipStyle": true,
     },
-    "editor.formatOnSave": true,
-    "editor.tabSize": 2
+    "angular-component": {
+      "skipChangeDetectionOnPush": true,
+    },
+    "angular-page": {
+      "skipChangeDetectionOnPush": true
+    }
+  }
 }
